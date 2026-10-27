@@ -465,6 +465,8 @@
     <bool name="clock_wallpaper">false</bool>
     <!-- How dark that wallpaper is behind the clock, 0 to 90 %. Can also be set with "clock_wallpaper_dim". -->
     <integer name="clock_wallpaper_dim">50</integer>
+    <!-- Personal fork: a black fade over the top 40 % of the wallpaper, 0 to 90 %. 0 turns it off. -->
+    <integer name="top_shade">60</integer>
     <!-- The clock screensaver's slow coloured glow behind the clock. false leaves the clock and date alone on plain black
          (OLED panels); they still move every minute. Ignored while clock_wallpaper shows a picture. Can also be set
          with "clock_glow" in a theme. -->

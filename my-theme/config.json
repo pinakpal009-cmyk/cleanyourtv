@@ -30,5 +30,6 @@
   "show_greeting": false,
   "icon_only_buttons": true,
   "icon_only_inputs": true,
-  "columns": 8
+  "columns": 8,
+  "always_show_names": true
 }

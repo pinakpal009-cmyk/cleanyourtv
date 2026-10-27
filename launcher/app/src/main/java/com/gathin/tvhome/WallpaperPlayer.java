@@ -46,6 +46,8 @@ final class WallpaperPlayer {
     private final int height;
     /** wallpaper_dim as an ARGB black, painted into each picture once instead of a full-screen shade view. */
     private final int dimColor;
+    /** Personal fork: top_shade, a black fade over the top of each picture, 0 to 90 %. */
+    private final int topShade;
     /** The picture on screen, released once the next one has been drawn. */
     private Bitmap current;
     private boolean active;
@@ -70,6 +72,7 @@ final class WallpaperPlayer {
         bitmapConfig = config.wallpaperTrueColor ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565;
         // The dim is painted into the picture (decode), so no full-screen shade layer is drawn on every frame.
         dimColor = config.wallpaperDim > 0 ? (config.wallpaperDim * 255 / 100) << 24 : 0;
+        topShade = Math.max(0, Math.min(90, context.getResources().getInteger(R.integer.top_shade)));
         order = config.wallpaperOrder;
         preferences = context.getSharedPreferences("wallpaper_rotation", Context.MODE_PRIVATE);
         moods = config.wallpaperMoods;
@@ -287,10 +290,18 @@ final class WallpaperPlayer {
                 options.inTargetDensity = scale[1];
             }
             options.inPreferredConfig = bitmapConfig;
-            options.inMutable = dimColor != 0;
+            options.inMutable = dimColor != 0 || topShade != 0;
             Bitmap decoded = BitmapFactory.decodeFile(file.getPath(), options);
             if (decoded == null) return null;
             if (dimColor != 0) new Canvas(decoded).drawColor(dimColor);
+            if (topShade != 0) {
+                // A fade from black at the top edge to clear at 40 % of the height, behind the clock and buttons.
+                android.graphics.Paint shade = new android.graphics.Paint();
+                float h = decoded.getHeight() * 0.4f;
+                shade.setShader(new android.graphics.LinearGradient(0, 0, 0, h,
+                        (topShade * 255 / 100) << 24, 0, android.graphics.Shader.TileMode.CLAMP));
+                new Canvas(decoded).drawRect(0, 0, decoded.getWidth(), h, shade);
+            }
             // One copy in GPU memory instead of a software bitmap plus its texture; the decode stays off the UI
             // thread for rotations, and Home's return no longer uploads 4-8 MB to the GPU.
             Bitmap gpu = decoded.copy(Bitmap.Config.HARDWARE, false);
