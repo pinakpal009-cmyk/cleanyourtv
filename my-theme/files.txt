@@ -10,4 +10,3 @@
 010.jpg
 011.jpg
 012.jpg
-captions.txt

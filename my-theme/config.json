@@ -1,6 +1,5 @@
 {
   "dock_apps": [
-    "com.tianci.localmedia",
     "com.netflix.ninja",
     "com.google.android.youtube.tv",
     "com.amazon.amazonvideo.livingroom",
@@ -8,7 +7,6 @@
     "com.sonyliv",
     "com.graymatrix.did"
   ],
-  "app_labels": ["com.tianci.localmedia=USB"],
   "fill_dock": false,
   "dock_row": true,
   "single_row": true,
@@ -28,7 +26,6 @@
   "wallpaper": true,
   "wallpaper_rotation_minutes": 30,
   "wallpaper_order": "shuffle",
-  "wallpaper_captions": false,
   "wallpaper_dim": 10,
   "show_greeting": false,
   "icon_only_buttons": true,
