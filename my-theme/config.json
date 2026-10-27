@@ -7,11 +7,11 @@
     "com.sonyliv",
     "com.graymatrix.did"
   ],
-  "fill_dock": false,
+  "fill_dock": true,
   "dock_row": true,
-  "single_row": true,
-  "dock_band_all": true,
-  "rows_below_dock": 0,
+  "single_row": false,
+  "dock_band_all": false,
+  "rows_below_dock": 1,
   "uniform_tiles": true,
   "dock_glass": true,
   "dock_opacity": 40,
@@ -29,5 +29,6 @@
   "wallpaper_dim": 10,
   "show_greeting": false,
   "icon_only_buttons": true,
-  "icon_only_inputs": true
+  "icon_only_inputs": true,
+  "columns": 8
 }
