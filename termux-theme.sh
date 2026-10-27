@@ -17,15 +17,19 @@ put() { # $1 = local file, $2 = name on the TV
 del() { A shell "rm -f $DIR/$1 2>/dev/null; content delete --uri $URI/$1 2>/dev/null" || true; }
 W=$(mktemp -d)
 A shell "mkdir -p $DIR/wallpapers 2>/dev/null; rm -f $DIR/wallpapers/* 2>/dev/null; content delete --uri $URI/wallpapers 2>/dev/null" || true
+del wallpaper.jpg
 if [ "${2:-}" = --reset ]; then
-  del config.json; del wallpaper.jpg
+  del config.json
   echo "Theme removed."
 else
   echo "Downloading theme..."
   curl -fsSL "$RAW/config.json" -o "$W/config.json"
-  curl -fsSL "$RAW/wallpaper.jpg" -o "$W/wallpaper.jpg"
+  curl -fsSL "$RAW/files.txt" -o "$W/files.txt"
   put "$W/config.json" config.json
-  put "$W/wallpaper.jpg" wallpaper.jpg
+  for f in $(cat "$W/files.txt"); do
+    curl -fsSL "$RAW/wallpapers/$f" -o "$W/$f"
+    put "$W/$f" "wallpapers/$f"; echo "  sent $f"
+  done
   echo "Theme sent."
 fi
 printf '%s' "$(date +%s%N)" > "$W/rev"; put "$W/rev" theme_revision

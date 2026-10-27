@@ -1,5 +1,6 @@
 {
   "dock_apps": [
+    "com.tianci.localmedia",
     "com.netflix.ninja",
     "com.google.android.youtube.tv",
     "com.amazon.amazonvideo.livingroom",
@@ -7,13 +8,29 @@
     "com.sonyliv",
     "com.graymatrix.did"
   ],
-  "background_color": "#090C14",
-  "wallpaper": true,
-  "cinematic_home": true,
+  "app_labels": ["com.tianci.localmedia=USB"],
+  "fill_dock": false,
+  "dock_row": true,
+  "single_row": true,
+  "dock_band_all": true,
+  "rows_below_dock": 0,
+  "uniform_tiles": true,
   "dock_glass": true,
-  "icon_only_buttons": true,
-  "app_glow": true,
-  "glow_style": "horizon",
+  "dock_opacity": 40,
+  "dock_even_padding": true,
+  "dock_title": false,
+  "cinematic_home": false,
+  "ambient_glow": false,
+  "app_glow": false,
+  "glass_style": "rim",
   "focus_overshoot": false,
-  "advanced_effects": true
+  "background_color": "#05070C",
+  "wallpaper": true,
+  "wallpaper_rotation_minutes": 30,
+  "wallpaper_order": "shuffle",
+  "wallpaper_captions": false,
+  "wallpaper_dim": 10,
+  "show_greeting": false,
+  "icon_only_buttons": true,
+  "icon_only_inputs": true
 }
