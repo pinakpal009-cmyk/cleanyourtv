@@ -2896,6 +2896,22 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         return getPackageManager().resolveActivity(byAction, 0) != null ? byAction : null;
     }
 
+    /** usb_package's launch intent: leanback entry, normal launcher entry, or its first MAIN activity. */
+    private Intent usbIntent() {
+        String pkg = getString(R.string.usb_package).trim();
+        if (pkg.isEmpty()) return null;
+        android.content.pm.PackageManager pm = getPackageManager();
+        Intent i = pm.getLeanbackLaunchIntentForPackage(pkg);
+        if (i == null) i = pm.getLaunchIntentForPackage(pkg);
+        if (i != null) return i;
+        List<android.content.pm.ResolveInfo> mains =
+                pm.queryIntentActivities(new Intent(Intent.ACTION_MAIN).setPackage(pkg), 0);
+        if (mains.isEmpty()) return null;
+        android.content.pm.ActivityInfo a = mains.get(0).activityInfo;
+        return new Intent(Intent.ACTION_MAIN).setClassName(a.packageName, a.name)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
+
     /** The TV's own source-selection panel, for TVs that have no TvInputManager (TCL Android TV 9): a
      *  service, or an activity on sets whose panel is a dialog (BYINTEK U4's QuickSourceActivity). */
     private void openSourcePanel() {
@@ -3175,6 +3191,12 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             if (rows.getChildCount() > 0) addSeparator(rows);
             final Intent liveTvIntent = liveTv;
             addInputRow(rows, popup, R.drawable.ic_livetv, getString(R.string.live_tv), -1, () -> open(liveTvIntent));
+        }
+        // Personal fork: the TV's USB media player as a USB row, like the stock Inputs menu had.
+        Intent usb = usbIntent();
+        if (usb != null) {
+            if (rows.getChildCount() > 0 && liveTv == null) addSeparator(rows);
+            addInputRow(rows, popup, R.drawable.ic_usb, "USB", -1, () -> open(usb));
         }
         if (rows.getChildCount() == 0) {
             Toast.makeText(this, R.string.no_inputs, Toast.LENGTH_SHORT).show();
