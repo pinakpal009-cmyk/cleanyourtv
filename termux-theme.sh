@@ -15,7 +15,7 @@ put() { # $1 = local file, $2 = name on the TV
   A shell "rm -f $DIR/$2 2>/dev/null; content write --uri $URI/$2 < $TMP-x || cp $TMP-x $DIR/$2; rm -f $TMP-x"
 }
 del() { A shell "rm -f $DIR/$1 2>/dev/null; content delete --uri $URI/$1 2>/dev/null" || true; }
-W=$(mktemp -d)
+W=$(mktemp -d); T=$(date +%s)
 A shell "mkdir -p $DIR/wallpapers 2>/dev/null; rm -f $DIR/wallpapers/* 2>/dev/null; content delete --uri $URI/wallpapers 2>/dev/null" || true
 del wallpaper.jpg
 if [ "${2:-}" = --reset ]; then
@@ -23,11 +23,11 @@ if [ "${2:-}" = --reset ]; then
   echo "Theme removed."
 else
   echo "Downloading theme..."
-  curl -fsSL "$RAW/config.json" -o "$W/config.json"
-  curl -fsSL "$RAW/files.txt" -o "$W/files.txt"
+  curl -fsSL "$RAW/config.json?t=$T" -o "$W/config.json"
+  curl -fsSL "$RAW/files.txt?t=$T" -o "$W/files.txt"
   put "$W/config.json" config.json
   for f in $(cat "$W/files.txt"); do
-    curl -fsSL "$RAW/wallpapers/$f" -o "$W/$f"
+    curl -fsSL "$RAW/wallpapers/$f?t=$T" -o "$W/$f"
     put "$W/$f" "wallpapers/$f"; echo "  sent $f"
   done
   echo "Theme sent."
