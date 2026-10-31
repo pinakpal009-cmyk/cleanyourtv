@@ -1,0 +1,30 @@
+{
+  "background_color": "#000000",
+  "wallpaper": true,
+  "wallpaper_rotation_minutes": 30,
+  "wallpaper_order": "sequential",
+  "wallpaper_dim": 15,
+  "white_icons": true,
+  "uniform_tiles": true,
+  "spotlight_color": "#FFFFFF",
+  "ambient_glow": true,
+  "app_glow": true,
+  "glow_style": "radial",
+  "glass_style": "halo",
+  "dock_glass": true,
+  "dock_opacity": 50,
+  "icon_only_buttons": true,
+  "clock_seconds": true,
+  "sharingan_eyes": true,
+  "sharingan_boot": true,
+  "show_greeting": false,
+  "focus_overshoot": false,
+  "dock_apps": [
+    "com.netflix.ninja",
+    "com.google.android.youtube.tv",
+    "com.amazon.amazonvideo.livingroom",
+    "in.startv.hotstar",
+    "com.sonyliv",
+    "com.graymatrix.did"
+  ]
+}

@@ -3,7 +3,8 @@
 # Usage: bash termux-theme.sh <tv ip>        Undo: bash termux-theme.sh <tv ip> --reset
 set -e
 TV="${1:?usage: bash termux-theme.sh <tv ip> [--reset]}"
-RAW=https://raw.githubusercontent.com/pinakpal009-cmyk/cleanyourtv/main/my-theme
+THEME="${THEME:-my-theme}"
+RAW=https://raw.githubusercontent.com/pinakpal009-cmyk/cleanyourtv/main/$THEME
 PKG=com.gathin.tvhome
 DIR=/sdcard/Android/data/$PKG/files
 URI=content://$PKG.theme
@@ -30,6 +31,7 @@ else
     curl -fsSL "$RAW/wallpapers/$f?t=$T" -o "$W/$f"
     put "$W/$f" "wallpapers/$f"; echo "  sent $f"
   done
+  if curl -fsSL "$RAW/wallpapers/captions.txt?t=$T" -o "$W/captions.txt" 2>/dev/null; then put "$W/captions.txt" wallpapers/captions.txt; fi
   echo "Theme sent."
 fi
 printf '%s' "$(date +%s%N)" > "$W/rev"; put "$W/rev" theme_revision
