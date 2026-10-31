@@ -15,8 +15,8 @@
   "dock_opacity": 40,
   "icon_only_buttons": true,
   "clock_seconds": true,
-  "sharingan_eyes": true,
-  "sharingan_boot": true,
+  "sharingan_eyes": false,
+  "sharingan_boot": false,
   "show_greeting": false,
   "focus_overshoot": false,
   "dock_apps": [
